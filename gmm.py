@@ -13,7 +13,7 @@ def test_GMM(dataMat, components=2, iter = 100, cov_type="full"):
     predicted_labels =clst.predict(dataMat)
     return clst.means_, predicted_labels
 
-rawData = xlrd.open_workbook('./citydata.xlsx')
+rawData = xlrd.open_workbook('./data/citydata.xlsx')
 table = rawData.sheets()[0]
 data = []
 for i in range(table.nrows):
@@ -38,11 +38,12 @@ print(mdl)
 from pyecharts import options as opts
 from pyecharts.charts import Geo
 from pyecharts.globals import ChartType
+
 c = (
     Geo(init_opts=opts.InitOpts(width="1400px", height="700px", theme='dark'))  # 图表大小, 主题风格
         .add_schema(maptype="china",  # 地图
                     itemstyle_opts=opts.ItemStyleOpts(color="#28527a",  # 背景颜色
-                                                      border_color="#9ba4b4"))  # 边框颜色, 可在 https://colorhunt.co/选择颜色
+                                                      border_color="#9ba4b4"))  # 边框颜色
         .add(
         "",  # 系列名称, 可不设置
         [(i, j) for i, j in zip(mdl['city'], mdl['label'])],  # 数据
