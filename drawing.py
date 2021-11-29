@@ -2,7 +2,6 @@ from pyecharts import options as opts
 from pyecharts.charts import Geo
 from pyecharts.globals import ChartType
 
-
 def plot(df):
     c = (
         Geo(init_opts=opts.InitOpts(width="1400px", height="700px", theme='dark'))  # 图表大小, 主题风格
