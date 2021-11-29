@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 
 
-rawData = xlrd.open_workbook('./citydata.xlsx')
+rawData = xlrd.open_workbook('./data/rawcitydata2的副本.xlsx')
 table = rawData.sheets()[0]
 data = []
 for i in range(table.nrows):
@@ -13,12 +13,12 @@ for i in range(table.nrows):
     else:
         data.append(table.row_values(i)[0:])
 
-featureList = ['city', 'longtitude', 'latitude', '2019precipitation','2020gdp']
+featureList = ['city', 'longitude', 'latitude', '2020population', '2020gdp', '2020LuminousIndex', '2020populationper', '2019ElectricityConsumpionpergdp']
 mdl = pd.DataFrame.from_records(data, columns=featureList)
 print(mdl)
 
 
-mdl_new = np.array(mdl[['longtitude', 'latitude', '2019precipitation', '2020gdp']])  # 转化为数组
+mdl_new = np.array(mdl[['longitude', 'latitude', '2020population', '2020gdp', '2020LuminousIndex', '2020populationper', '2019ElectricityConsumpionpergdp']])
 seed = 0  # 设置随机数
 clf = KMeans(n_clusters=2, random_state = seed, init = "k-means++")  # 聚类
 clf.fit(mdl_new)
@@ -62,4 +62,4 @@ c = (
                                                                {"min": 0, "max": 0, "color": "#b8de6f", 'label': '0'},
                                                                ])))
 
-c.render("./kmeans全国地级市聚类图.html")
+c.render("./kmeansCityClustering.html")
