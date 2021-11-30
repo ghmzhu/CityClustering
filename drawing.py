@@ -24,13 +24,15 @@ def plot(df):
                                                                pos_top='70%',  # pos_bottom
                                                                is_piecewise=True,  # 是否为分段显示
                                                                pieces=[
+                                                                   {"min": 4, "max": 4, "color": "#ffff00",
+                                                                    'label': '3'},
                                                                    {"min": 3, "max": 3, "color": "#32CD32",
                                                                     'label': '3'},
                                                                    {"min": 2, "max": 2, "color": "#1E90FF",
                                                                     'label': '2'},
                                                                    {"min": 1, "max": 1, "color": "#32e0c4",
                                                                     'label': '1'},
-                                                                   {"min": 0, "max": 0, "color": "#b8de6f",
+                                                                   {"min": 0, "max": 0, "color": "#9e5523",
                                                                     'label': '0'},
                                                                ])))
 
