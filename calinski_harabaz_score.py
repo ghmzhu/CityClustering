@@ -6,19 +6,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def Z_ScoreNormalization(x, mu, sigma):
-    x = (x - mu) / sigma
-    return x
-
-
 def test_GMM(dataMat, components, iter=100, cov_type="full"):
-    clst = mixture.GaussianMixture(n_components=components, max_iter=iter, covariance_type=cov_type)
+    clst = mixture.GaussianMixture(n_components=components, max_iter=iter, covariance_type=cov_type, reg_covar=1e-2)
     clst.fit(dataMat)
     predicted_labels = clst.predict(dataMat)
     return clst.means_, predicted_labels
 
 
-rawData = xlrd.open_workbook('./data/rawcitydata2的副本.xlsx')
+rawData = xlrd.open_workbook('./data/rawcitydata.xlsx')
 table = rawData.sheets()[0]
 data = []
 for i in range(table.nrows):
@@ -27,10 +22,9 @@ for i in range(table.nrows):
     else:
         data.append(table.row_values(i)[0:])
 
-featureList = ['city', 'longitude', 'latitude', '2020population', '2020gdp', '2020LuminousIndex', '2020populationper', '2019ElectricityConsumpionpergdp']
+featureList = ['city', '2020LuminousIndex', '2020GDP', '2020Population', '2020PopulationperAdministrativeArea', '2020GDPperCapita', '2020PopulationAttractionIndex', '2019ElectricityConsumpionperGDP', '2019LocalGeneralPublicBudgetExpenditure', '2019ExpenditureforScienceandTechnology', '2019ExpenditureforEducation']
 mdl = pd.DataFrame.from_records(data, columns=featureList)
-data = np.array(mdl[['longitude', 'latitude', '2020population', '2020gdp', '2020LuminousIndex', '2020populationper', '2019ElectricityConsumpionpergdp']])
-dataMat = Z_ScoreNormalization(data, data.mean(), data.std())
+dataMat = np.array(mdl[['2020LuminousIndex', '2020GDP', '2020Population', '2020PopulationperAdministrativeArea', '2020GDPperCapita', '2020PopulationAttractionIndex', '2019ElectricityConsumpionperGDP', '2019LocalGeneralPublicBudgetExpenditure', '2019ExpenditureforScienceandTechnology', '2019ExpenditureforEducation']])
 print(dataMat)
 
 cluster_num = range(2, 7)
