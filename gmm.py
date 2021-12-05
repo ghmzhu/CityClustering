@@ -32,5 +32,8 @@ centroids, labels = test_GMM(dataMat, n_components, iter, cov_types[3])
 mdl['label'] = labels
 print(mdl)
 
-
 drawing.plot(mdl)
+
+writer = pd.ExcelWriter('./label.xlsx')
+mdl.to_excel(writer, sheet_name='sheet1')
+writer.save()
